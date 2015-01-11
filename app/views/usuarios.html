@@ -1,0 +1,173 @@
+
+
+<div class="row">
+	<div class="col-md-12">
+		<form class="form-horizontal">
+			<fieldset>
+
+				<!-- Form Name -->
+				<legend>Professores</legend>
+
+				<!-- Text input-->
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="nome">Nome</label>  
+				  <div class="col-md-5">
+				  <input id="nome" name="nome" type="text" ng-model="professor.nome" placeholder="Nome" class="form-control input-md">
+				    
+				  </div>
+				</div>
+
+				<!-- Text input-->
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="email">Email</label>  
+				  <div class="col-md-4">
+				  <input id="email" name="email" type="text" ng-model="professor.email" placeholder="Email" class="form-control input-md" required="">
+				  <span class="help-block">Digite um email válido</span>  
+				  </div>
+				</div>
+
+				<!-- Password input-->
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="senha">Senha</label>
+				  <div class="col-md-4">
+				    <input id="senha" name="senha" type="password" ng-model="professor.senha" placeholder="Senha" class="form-control input-md" required="">
+				    
+				  </div>
+				</div>
+
+				<!-- Multiple Checkboxes -->
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="ehAdmin"></label>
+				  <div class="col-md-4">
+				  <div class="checkbox">
+				    <label for="ehAdmin-0">
+				      <input type="checkbox" name="ehAdmin" id="ehAdmin-0" value="" ng-model="professor.admin">
+				      Administrador ?
+				    </label>
+					</div>
+				  </div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-12 text-center">
+						<button class="btn btn-primary" ng-click="salvar(professor)"><span class="glyphicon glyphicon-ok-sign"></span> Salvar</button>
+					</div>
+				</div>
+
+			</fieldset>
+		</form>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<legend>Lista de Professores</legend>
+		<div class="table-responsive">
+			<table id="mytable" class="table table-bordered table-striped">
+				<tr>
+					<th width="50">Código</th>
+					<th>Nome</th>
+					<th>E-mail</th>
+					<th>Administrador</th>
+					<th>Editar</th>
+	                <th>Deletar</th>
+				</tr>
+
+				<tr ng-repeat="professor in professores">
+				    <td>{{professor.id}}</td>
+				    <td>{{professor.nome}}</td>
+				    <td>{{professor.email}}</td>
+				    <td ng-if="professor.admin"><i class="fa fa-check"></i></td>
+				    <td ng-if="!professor.admin"><i class="fa fa-times"></i></td>
+				    <td><p><button ng-click="loadModalForEdit(professor)" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+				    <td><p><button ng-click="loadModalForDelete(professor)" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+			    </tr>
+				
+			</table>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title custom_align" id="Heading">Edição</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<fieldset>
+					<input type="hidden" ng-model="modal.id">
+						<!-- Text input-->
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="nome">Nome</label>  
+							<div class="col-md-5">
+								<input ng-model="modal.nome" id="nome" name="nome" type="text" placeholder="Nome" class="form-control input-md">
+
+							</div>
+						</div>
+
+						<!-- Text input-->
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="email">Email</label>  
+							<div class="col-md-6">
+								<input ng-model="modal.email" id="email" name="email" type="text" placeholder="Email" class="form-control input-md" required="">
+								<span class="help-block">Digite um email válido</span>  
+							</div>
+						</div>
+
+						<!-- Password input-->
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="senha">Senha</label>
+							<div class="col-md-4">
+								<input ng-model="modal.senha" id="senha" name="senha" type="password" placeholder="Senha" class="form-control input-md" required="">
+
+							</div>
+						</div>
+
+						<!-- Multiple Checkboxes -->
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="ehAdmin"></label>
+							<div class="col-md-4">
+								<div class="checkbox">
+									<label for="ehAdmin-0">
+										<input ng-model="modal.admin" type="checkbox" name="ehAdmin" id="ehAdmin-0" value="">
+										Administrador ?
+									</label>
+								</div>
+							</div>
+						</div>
+
+					</fieldset>
+				</form>
+			</div>
+			<div class="modal-footer ">
+				<button type="button" class="btn btn-warning btn-lg" style="width: 100%;" ng-click="editar(modal)"><span class="glyphicon glyphicon-ok-sign"></span> Atualizar</button>
+			</div>
+		</div>
+	<!-- /.modal-content --> 
+	</div>
+<!-- /.modal-dialog --> 
+</div>
+
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title custom_align" id="Heading">Deletar</h4>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-warning">
+					<input type="hidden" ng-model="delmodal.id">
+					<span class="fa fa-warning"></span> Deseja realmente remover o registro selecionado?
+				</div>
+			</div>
+			<div class="modal-footer ">
+				<button ng-click="deletar(delmodal.id)" type="button" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span> Sim</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Não</button>
+			</div>
+		</div>
+	<!-- /.modal-content --> 
+	</div>
+<!-- /.modal-dialog --> 
+</div>

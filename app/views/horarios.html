@@ -1,0 +1,35 @@
+<div>
+		<div class="text-center">
+			<h1>Horários do Laboratório 23</h1>
+		</div>
+	
+
+		<div class="row" style="margin-left: 30px;">
+
+		    <div ng-repeat="dia in dias">
+            
+			    <h2>{{ dia.nome }}</h2>
+
+			    <div ng-repeat="turno in dia.turnos">
+			    	<h3>{{turno.nome}}</h3>
+					
+					<div class="time-slot" ng-repeat="aluno in turno.alunos">
+						<div class="horario" ng-if="aluno!=null">
+						  <input type="checkbox" id="{{ aluno }}-{{ $index }}" ng-model="aluno.marcado">
+
+					      <label for="{{ aluno }}-{{ $index }}">{{ turno.horario }}<br>
+					        <span ng-if="aluno.marcado">Reservado</span>
+					        <span ng-if="!aluno.marcado">Disponível</span>
+					      </label>
+						</div>
+					  
+					</div>
+			    </div>
+  			</div>       
+
+	  	</div>
+
+	  <p class="text-center">    
+	    <a href="#" class="btn btn-primary" data-ng-click="">Reiniciar</a>
+	  </p>
+</div>
