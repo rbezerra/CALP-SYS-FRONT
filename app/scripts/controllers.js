@@ -103,8 +103,45 @@ angular.module('calpApp.controllers', [])
 	    $scope.message = 'FALTA IMPLEMENTAR';
 	})
 
-	.controller('ProjetosController',  function($scope){
-	    $scope.message = 'FALTA IMPLEMENTAR';
+	.controller('ProjetosController',  function($scope, $http){
+
+		var init = function(){
+			loadProjetos();
+	      	loadProfessores();
+	      	loadTiposDeProjeto();
+		}();
+
+		function loadProjetos(){
+			$http.get('http://radiosomtotal.jelastic.elastx.net/calp/projetos/')
+	      	.success(function(data){
+	      		$scope.projetos = data;
+	      	})
+	      	.error(function(data, status){
+	      		console.log('Erro: ',status,'  ---  ',data);
+	      	});
+		}
+
+	    function loadProfessores(){
+	      	$scope.professores = [];
+	      	$http.get('http://radiosomtotal.jelastic.elastx.net/calp/professores/')
+	      	.success(function(data){
+	      		$scope.professores = data;
+	      	})
+	      	.error(function(data, status){
+	      		console.log('Erro: ',status,'  ---  ',data);
+	      	});
+      	}
+
+      	function loadTiposDeProjeto(){
+      		$scope.tiposDeProjeto = [];
+      		$http.get('http://radiosomtotal.jelastic.elastx.net/calp/categorias_projeto/')
+	      	.success(function(data){
+	      		$scope.tiposDeProjeto = data;
+	      	})
+	      	.error(function(data, status){
+	      		console.log('Erro: ',status,'  ---  ',data);
+	      	});
+      	}
 	})
 
 	.controller('SobreController',  function($scope){
