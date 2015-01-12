@@ -182,7 +182,11 @@ angular.module('calpApp.controllers', [])
             }
 
              function loadProjetos(){
+<<<<<<< HEAD
                   $scope.projetos = [];
+=======
+                  $scope.professores = [];
+>>>>>>> cdfe5b0192584e2d2d244431ceaa812a68c08fa5
                   $http.get('http://radiosomtotal.jelastic.elastx.net/calp/projetos/')
                   .success(function(data){
                         $scope.projetos = data;
@@ -284,16 +288,18 @@ angular.module('calpApp.controllers', [])
 	      		console.log('Erro: ',status,'  ---  ',data);
 	      	});
 		}
+
             function limpar(){
                   $scope.projetos = {};
                   $scope.modal = {};
             }
 
-	    function loadProfessores(){
+	      function loadProfessores(){
 	      	$scope.professores = [];
 	      	$http.get('http://radiosomtotal.jelastic.elastx.net/calp/professores/')
 	      	.success(function(data){
 	      		$scope.professores = data;
+                        console.log("professores carregados");
 	      	})
 	      	.error(function(data, status){
 	      		console.log('Erro: ',status,'  ---  ',data);
