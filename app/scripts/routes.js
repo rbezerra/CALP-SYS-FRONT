@@ -3,7 +3,7 @@
 angular.module('calpApp.routes', ['ngRoute'])
 	.constant('ROUTES', {
 		'/': {
-	      templateUrl: 'views/horarios.html',
+	      templateUrl: 'views/horariosTeste.html',
 	      controller : 'MainController'
 	    },
 	    '/usuarios' : {
