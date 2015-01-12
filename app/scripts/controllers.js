@@ -2,25 +2,59 @@
 
 angular.module('calpApp.controllers', [])
 	.controller('MainController', ['$scope' , '$http', function($scope, $http){
+            $scope.dias = ['segunda', 'terça', 'quarta', 'quinta', 'sexta'];
+            $scope.turnos = ['manhã', 'tarde', 'noite']
 		var init = function(){
-                loadAlunos();        
+                loadAlunos();
+                loadAgendas();        
             }();
 
             $scope.loadModalForEdit = function(agenda){
-                  var modal = {};
-                  modal.agenda_id = agenda.id;
-                  modal.professor_id = agenda.professor.id;
-            }
+                  console.log(agenda);
+                  var modal = {
+                        agenda : {
+                              professor: {}
+                        }
+                  };
+                  $scope.modal = modal;
+                  $scope.modal.agenda.id = agenda.id;
+                  if(agenda.professor){
+                        $scope.modal.agenda.professor.id = agenda.professor.id;
+                  }else{
+                        $scope.modal.agenda.professor.id = 3;
+                  }
+                  console.log(modal);
+            };
 
-            $scope.atualizarAgenda = function(){
-                  console.log("TODO URGENTE ", $scope.modal.aluno);
-            }
+            $scope.atualizarAgenda = function(modal){
+                  var id = modal.agenda.id;
+                  var agenda = modal.agenda;
+                  console.log('update: ', agenda);
+                  $http.put('http://radiosomtotal.jelastic.elastx.net/calp/agenda/alterar/'+id,agenda)
+                        .success(function(data){
+                              loadAgendas();
+                        })
+                        .error(function(data, status){
+                              console.log('Erro: ',status,'  ---  ',data);
+                        });
+            };
 
             function loadAlunos(){
                   $scope.alunos = [];
                   $http.get('http://radiosomtotal.jelastic.elastx.net/calp/alunos/')
                   .success(function(data){
                         $scope.alunos = data;
+                  })
+                  .error(function(data, status){
+                        console.log('Erro: ',status,'  ---  ',data);
+                  });
+            }
+
+            function loadAgendas(){
+                  $scope.agendas = [];
+                  $http.get('http://radiosomtotal.jelastic.elastx.net/calp/agenda/livre')
+                  .success(function(data){
+                        $scope.agendas = data;
                   })
                   .error(function(data, status){
                         console.log('Erro: ',status,'  ---  ',data);
@@ -318,7 +352,7 @@ angular.module('calpApp.controllers', [])
 	      	$http.get('http://radiosomtotal.jelastic.elastx.net/calp/professores/')
 	      	.success(function(data){
 	      		$scope.professores = data;
-                        console.log("professores carregados");
+                        console.log('professores carregados');
 	      	})
 	      	.error(function(data, status){
 	      		console.log('Erro: ',status,'  ---  ',data);
