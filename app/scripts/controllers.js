@@ -1,8 +1,31 @@
 'use strict';
 
 angular.module('calpApp.controllers', [])
-	.controller('MainController', ['$scope', function($scope){
-		$scope.dias = [];
+	.controller('MainController', ['$scope' , '$http', function($scope, $http){
+		var init = function(){
+                loadAlunos();        
+            }();
+
+            $scope.loadModalForEdit = function(agenda){
+                  var modal = {};
+                  modal.agenda_id = agenda.id;
+                  modal.professor_id = agenda.professor.id;
+            }
+
+            $scope.atualizarAgenda = function(){
+                  console.log("TODO URGENTE ", $scope.modal.aluno);
+            }
+
+            function loadAlunos(){
+                  $scope.alunos = [];
+                  $http.get('http://radiosomtotal.jelastic.elastx.net/calp/alunos/')
+                  .success(function(data){
+                        $scope.alunos = data;
+                  })
+                  .error(function(data, status){
+                        console.log('Erro: ',status,'  ---  ',data);
+                  });
+            }
 
 	}])
 
