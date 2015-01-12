@@ -182,11 +182,7 @@ angular.module('calpApp.controllers', [])
             }
 
              function loadProjetos(){
-<<<<<<< HEAD
                   $scope.projetos = [];
-=======
-                  $scope.professores = [];
->>>>>>> cdfe5b0192584e2d2d244431ceaa812a68c08fa5
                   $http.get('http://radiosomtotal.jelastic.elastx.net/calp/projetos/')
                   .success(function(data){
                         $scope.projetos = data;
