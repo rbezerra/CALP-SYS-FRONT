@@ -2,8 +2,8 @@
 
 angular.module('calpApp.controllers', [])
 	.controller('MainController', ['$scope' , '$http', function($scope, $http){
-            $scope.dias = ['segunda', 'terça', 'quarta', 'quinta', 'sexta'];
-            $scope.turnos = ['manhã', 'tarde', 'noite']
+            $scope.dias = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'];
+            $scope.turnos = ['Manhã', 'Tarde', 'Noite']
 		var init = function(){
                 loadAlunos();
                 loadAgendas();        

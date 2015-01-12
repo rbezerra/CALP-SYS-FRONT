@@ -1,333 +1,60 @@
 <div class="row clearfix">
-	<div ng-repeat="dia in dias">
-		<h1>{{dia}}</h1>
-		<div ng-repeat="turno in turnos">
-			<h2>{{turno}}<h2>
-			<div ng-repeat="agenda in agendas" style="margin: 10px 10px 10px 10px;">
-				<div ng-if="agenda.horario.dia==dia && agenda.horario.turno==turno">
-					<div ng-if="agenda.aluno">
-						<button ng-click="loadModalForEdit(agenda)" data-title="Edit" data-toggle="modal" data-target="#edit" class="btn">{{agenda.aluno.nome}}</button>
-					</div>
-					<div ng-if="!agenda.aluno">
-						<button ng-click="loadModalForEdit(agenda)" data-title="Edit" data-toggle="modal" data-target="#edit" class="btn">Horário Disponível</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h4 class="modal-title custom_align" id="Heading">Edição</h4>
-				</div>
-				<div class="modal-body">
-					<form class="form-horizontal">
-						<fieldset>
-							<!-- Select Basic -->
-							<div class="form-group">
-								<label class="col-md-4 control-label" for="aluno">Nome</label>
-								<div class="col-md-5">
-									<select class="form-control" ng-options="aluno.nome for aluno in alunos track by aluno.id" ng-model="modal_agenda.aluno">
-										<option value="">Nenhum</option>
-									</select>
+	<h1 class="text-center text-info">
+				Horário
+			</h1>
+	<table class="table">
+		<tr class="success">
+			<th ng-repeat="dia in dias">
+				<!--th-->
+					
+					<div ng-repeat="turno in turnos">
+						<h2>{{dia}}/{{turno}}</h2>
+						<div ng-repeat="agenda in agendas" style="margin: 10px 10px 10px 10px;">
+							<div ng-if="agenda.horario.dia==dia && agenda.horario.turno==turno">
+								<div ng-if="agenda.aluno">
+									<button ng-click="loadModalForEdit(agenda)" data-title="Edit" data-toggle="modal" data-target="#edit" class="btn btn-danger btn-xs">{{agenda.aluno.nome}}</button>
 								</div>
-							</div>
-
-						</fieldset>
-					</form>
-				</div>
-				<div class="modal-footer ">
-					<button ng-click="atualizarAgenda(modal_agenda)" type="button" class="btn btn-primary btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Cadastrar</button>
-				</div>
-			</div>
-		<!-- /.modal-content -->
-		</div>
-	<!-- /.modal-dialog -->
-	</div>
-	
-</div>
-
-<!-- <div class="row clearfix">
-	<div class="col-md-12 column">
-		<table class="table">
-			<thead>
-				<tr>
-					<th></th>
-					<th>Segunda</th>
-					<th>Terça</th>
-					<th>Quarta</th>
-					<th>Quinta</th>
-					<th>Sexta</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class="success">
-					<th>Manhã</th>
-					<td>
-						<label class="col-md-5 control-label" for="resumoProjeto">
-							<div ng-repeat="agenda in agendas">
-								<div ng-if="agenda.horario.dia=='segunda'">
-									<div ng-if="agenda.horario.turno=='manhã'">
-										<small>{{agenda.aluno.nome}}</small>
-									</div>
-									<div ng-if="!agenda.aluno">
-										<small>Horário Disponível</small>
-									</div>
-									<div class="col-md-5">
-										<button ng-click="loadModalForEdit(agenda)" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
-											<span class="glyphicon glyphicon-pencil"></span>
-										</button>
-									</div>
+								<div ng-if="!agenda.aluno">
+									<button ng-click="loadModalForEdit(agenda)" data-title="Edit" data-toggle="modal" data-target="#edit" class="btn btn-primary btn-xs">Horário Disponível</button>
 								</div>
-							</div>
-						</label>
-					</td>
-					<td>
-						<label class="col-md-5 control-label" for="resumoProjeto">
-							<div ng-repeat="agenda in agendas">
-								<div ng-if="agenda.horario.dia=='terça'">
-									<div ng-if="agenda.horario.turno=='manhã'">
-										<small>{{agenda.aluno.nome}}</small>
-									</div>
-									<div ng-if="!agenda.aluno">
-										<small>Horário Disponível</small>
-									</div>
-								</div>
-								<div class="col-md-5">
-									<button ng-click="loadModalForEdit(agenda)" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
-										<span class="glyphicon glyphicon-pencil"></span>
-									</button>
-								</div>
-							</div>
-						</label>
-						
-						</td>
-						<td>
-							<label class="col-md-5 control-label" for="resumoProjeto">
-								<div ng-repeat="agenda in agendas">
-									<div ng-if="agenda.horario.dia=='quarta' && agenda.horario.turno=='manhã'">
-										<small>{{agenda.aluno.nome}}</small>
-									</div>									
-								</div>
-							</label>
-							<div class="col-md-5">
-								<button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
-									<span class="glyphicon glyphicon-pencil"></span>
-								</button>
-							</div>
-						</td>
-						<td>
-							<label class="col-md-5 control-label" for="resumoProjeto">
-								<div ng-repeat="agenda in agendas">
-									<div ng-if="agenda.horario.dia=='quinta' && agenda.horario.turno=='manhã'">
-										<small>{{agenda.aluno.nome}}</small>
-									</div>
-								</div>
-							</label>
-							<div class="col-md-5">
-								<button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
-									<span class="glyphicon glyphicon-pencil"></span>
-								</button>
-							</div>
-						</td>
-						<td>
-							<label class="col-md-5 control-label" for="resumoProjeto">
-								<div ng-repeat="agenda in agendas">
-									<div ng-if="agenda.horario.dia=='sexta' && agenda.horario.turno=='manhã'">
-										<small>{{agenda.aluno.nome}}</small>
-									</div>
-								</div>
-							</label>
-							<div class="col-md-5">
-								<button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
-									<span class="glyphicon glyphicon-pencil"></span>
-								</button>
-							</div>
-						</td>
-					</tr>
-					<tr class="success">
-						<th>Tarde</th>
-						<td>
-							<label class="col-md-5 control-label" for="resumoProjeto">
-								<div ng-repeat="agenda in agendas">
-									<div ng-if="agenda.horario.dia=='segunda' && agenda.horario.turno=='tarde'">
-										<small>{{agenda.aluno.nome}}</small>
-									</div>
-								</div>
-							</label>
-							<div class="col-md-5">
-								<button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
-									<span class="glyphicon glyphicon-pencil"></span>
-								</button>
-							</div>
-						</td>
-						<td>
-							<label class="col-md-5 control-label" for="resumoProjeto">
-								<div ng-repeat="agenda in agendas">
-									<div ng-if="agenda.horario.dia=='terça' && agenda.horario.turno=='tarde'">
-										<small>{{agenda.aluno.nome}}</small>
-									</div>
-								</div>
-							</label>
-							<div class="col-md-5">
-								<button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
-									<span class="glyphicon glyphicon-pencil"></span>
-								</button>
-							</div>
-						</td>
-						<td>
-							<label class="col-md-5 control-label" for="resumoProjeto">
-								<div ng-repeat="agenda in agendas">
-									<div ng-if="agenda.horario.dia=='quarta' && agenda.horario.turno=='tarde'">
-										<small>{{agenda.aluno.nome}}</small>
-									</div>
-								</div>
-							</label>
-							<div class="col-md-5">
-								<button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
-									<span class="glyphicon glyphicon-pencil"></span>
-								</button>
-							</div>
-						</td>
-						<td>
-							<label class="col-md-5 control-label" for="resumoProjeto">
-								<div ng-repeat="agenda in agendas">
-									<div ng-if="agenda.horario.dia=='quinta' && agenda.horario.turno=='tarde'">
-										<small>{{agenda.aluno.nome}}</small>
-									</div>
-								</div>
-							</label>
-							<div class="col-md-5">
-								<button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
-									<span class="glyphicon glyphicon-pencil"></span>
-								</button>
-							</div>
-						</td>
-						<td>
-							<label class="col-md-5 control-label" for="resumoProjeto">
-								<div ng-repeat="agenda in agendas">
-									<div ng-if="agenda.horario.dia=='sexta' && agenda.horario.turno=='tarde'">
-										<small>{{agenda.aluno.nome}}</small>
-									</div>
-								</div>
-							</label>
-							<div class="col-md-5">
-								<button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
-									<span class="glyphicon glyphicon-pencil"></span>
-								</button>
-							</div>
-						</td>
-					</tr>
-					<tr class="success">
-						<th>Noite</th>
-						<td>
-							<label class="col-md-5 control-label" for="resumoProjeto">
-								<div ng-repeat="agenda in agendas">
-									<div ng-if="agenda.horario.dia=='segunda' && agenda.horario.turno=='noite'">
-										<small>{{agenda.aluno.nome}}</small>
-									</div>
-								</div>
-							</label>
-							<div class="col-md-5">
-								<button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
-									<span class="glyphicon glyphicon-pencil"></span>
-								</button>
-							</div>
-						</td>
-						<td>
-							<label class="col-md-5 control-label" for="resumoProjeto">
-								<div ng-repeat="agenda in agendas">
-									<div ng-if="agenda.horario.dia=='terça' && agenda.horario.turno=='noite'">
-										<small>{{agenda.aluno.nome}}</small>
-									</div>
-								</div>
-							</label>
-							<div class="col-md-5">
-								<button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
-									<span class="glyphicon glyphicon-pencil"></span>
-								</button>
-							</div>
-						</td>
-						<td>
-							<label class="col-md-5 control-label" for="resumoProjeto">
-								<div ng-repeat="agenda in agendas">
-									<div ng-if="agenda.horario.dia=='quarta' && agenda.horario.turno=='noite'">
-										<small>{{agenda.aluno.nome}}</small>
-									</div>
-								</div>
-							</label>
-							<div class="col-md-5">
-								<button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
-									<span class="glyphicon glyphicon-pencil"></span>
-								</button>
-							</div>
-						</td>
-						<td>
-							<label class="col-md-5 control-label" for="resumoProjeto">
-								<div ng-repeat="agenda in agendas">
-									<div ng-if="agenda.horario.dia=='quinta' && agenda.horario.turno=='noite'">
-										<small>{{agenda.aluno.nome}}</small>
-									</div>
-								</div>
-							</label>
-							<div class="col-md-5">
-								<button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
-									<span class="glyphicon glyphicon-pencil"></span>
-								</button>
-							</div>
-						</td>
-						<td>
-							<label class="col-md-5 control-label" for="resumoProjeto">
-								<div ng-repeat="agenda in agendas">
-									<div ng-if="agenda.horario.dia=='sexta' && agenda.horario.turno=='noite'">
-										<small>{{agenda.aluno.nome}}</small>
-									</div>
-								</div>
-							</label>
-							<div class="col-md-5">
-								<button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
-									<span class="glyphicon glyphicon-pencil"></span>
-								</button>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
-		<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h4 class="modal-title custom_align" id="Heading">Edição</h4>
-			</div>
-			<div class="modal-body">
-				<form class="form-horizontal">
-					<fieldset>
-						<!-- Select Basic
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="aluno">Nome</label>
-							<div class="col-md-5">
-								<input type="hidden" ng-model="modal.professor.id">
-								<input type="hidden" ng-model="modal.agenda.id">
-								<select class="form-control" ng-options="aluno.nome for aluno in alunos track by aluno.id" ng-model="modal.agenda.aluno"></select>
 							</div>
 						</div>
+					</div>
+					
+					
+					<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+									<h4 class="modal-title custom_align" id="Heading">Edição</h4>
+								</div>
+								<div class="modal-body">
+									<form class="form-horizontal">
+										<fieldset>
+											<!-- Select Basic -->
+											<div class="form-group">
+												<label class="col-md-4 control-label" for="aluno">Nome</label>
+												<div class="col-md-5">
+													<select class="form-control" ng-options="aluno.nome for aluno in alunos track by aluno.id" ng-model="modal_agenda.aluno">
+														<option value="">Nenhum</option>
+													</select>
+												</div>
+											</div>
 
-					</fieldset>
-				</form>
-			</div>
-			<div class="modal-footer ">
-				<button ng-click="atualizarAgenda()" type="button" class="btn btn-primary btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Cadastrar</button>
-			</div>
-		</div>
-	<!-- /.modal-content 
-	</div>
-<!-- /.modal-dialog 
+										</fieldset>
+									</form>
+								</div>
+								<div class="modal-footer ">
+									<button ng-click="atualizarAgenda(modal_agenda)" type="button" class="btn btn-primary btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Cadastrar</button>
+								</div>
+							</div>
+						<!-- /.modal-content -->
+						</div>
+					<!-- /.modal-dialog -->
+					</div>
+				<!--/th-->
+			</th> <!-- Repeat de dias-->
+		</tr>
+	</table>
 </div>
-
-</div>
- -->
