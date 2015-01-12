@@ -29,9 +29,9 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label" for="aluno">Nome</label>
 								<div class="col-md-5">
-									<input type="hidden" ng-model="modal.agenda.professor.id">
-									<input type="hidden" ng-model="modal.agenda.id">
-									<select class="form-control" ng-options="aluno.nome for aluno in alunos track by aluno.id" ng-model="modal.agenda.aluno"></select>
+									<select class="form-control" ng-options="aluno.nome for aluno in alunos track by aluno.id" ng-model="modal_agenda.aluno">
+										<option value="">Nenhum</option>
+									</select>
 								</div>
 							</div>
 
@@ -39,7 +39,7 @@
 					</form>
 				</div>
 				<div class="modal-footer ">
-					<button ng-click="atualizarAgenda(modal)" type="button" class="btn btn-primary btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Cadastrar</button>
+					<button ng-click="atualizarAgenda(modal_agenda)" type="button" class="btn btn-primary btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Cadastrar</button>
 				</div>
 			</div>
 		<!-- /.modal-content -->

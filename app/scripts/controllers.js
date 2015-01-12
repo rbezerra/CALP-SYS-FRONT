@@ -11,24 +11,31 @@ angular.module('calpApp.controllers', [])
 
             $scope.loadModalForEdit = function(agenda){
                   console.log(agenda);
-                  var modal = {
-                        agenda : {
-                              professor: {}
-                        }
+                  var modal_agenda = {
                   };
-                  $scope.modal = modal;
-                  $scope.modal.agenda.id = agenda.id;
-                  if(agenda.professor){
-                        $scope.modal.agenda.professor.id = agenda.professor.id;
-                  }else{
-                        $scope.modal.agenda.professor.id = 3;
-                  }
-                  console.log(modal);
+                  $scope.modal_agenda = agenda;
+                  
+                  
+                  console.log('agenda montada', $scope.modal_agenda);
             };
 
             $scope.atualizarAgenda = function(modal){
-                  var id = modal.agenda.id;
-                  var agenda = modal.agenda;
+                  var professor = {
+                        admin: false,
+                        email: "sa@ps.edu.br",
+                        id: 1,
+                        nome: "Samir Kramrot",
+                        senha: "12345"
+                  }
+                  var id = modal.id;
+                  var agenda = modal;
+                  if(agenda.aluno === null){
+                        agenda.professor = {};
+                        agenda.professor = null;
+                  }else{
+                        agenda.professor = {};
+                        agenda.professor = professor;
+                  }
                   console.log('update: ', agenda);
                   $http.put('http://radiosomtotal.jelastic.elastx.net/calp/agenda/alterar/'+id,agenda)
                         .success(function(data){
